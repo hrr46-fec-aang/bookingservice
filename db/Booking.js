@@ -1,13 +1,26 @@
 const mongoose = require('mongoose');
-const db = require('./index.js');
+const mongoUri = 'mongodb://localhost/booking';
+
+mongoose.connect(mongoUri);
 mongoose.Promise = global.Promise;
 
 const bookingSchema = new mongoose.Schema({
-  name: String,
-  arriveAt: Date,
-  departAt: Date,
-  groupSize: Number
-});
+  id: {type: Number, default: 1},
+  listingName: String,
+  price: Number,
+  bookedDates: [{date: Date}],
+  bookings: [{
+    bookingName: String,
+    arriveAt: Date,
+    departAt: Date,
+    groupSize: Number
+  }]
+
+}, 
+  {
+    timestamps: true
+  }
+);
 
 const Booking = mongoose.model('Booking', bookingSchema);
 
