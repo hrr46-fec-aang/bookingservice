@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(__dirname+ '/../dist'));
 
-app.get('/api/bookings/:id', (req, res) => {
+app.get('/:id', (req, res) => {
   let id = req.params.id;
   Booking.find({'id': id})
   .then(data => {
