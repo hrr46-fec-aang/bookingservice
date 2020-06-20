@@ -4,8 +4,8 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/mongo:4.2.3
       - image: circleci/node
+      - image: circleci/mongo:4.2.3
     executor:
       name: node/default
       tag: '12.16.3'
