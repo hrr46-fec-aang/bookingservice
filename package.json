@@ -7,7 +7,7 @@
     "build": "webpack -d --watch",
     "start": "nodemon ./server/index.js",
     "db:setup": "node db/seed.js",
-    "test": "jest --testTimeout=10000"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
