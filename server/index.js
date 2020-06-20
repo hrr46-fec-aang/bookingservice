@@ -2,7 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const Booking = require('../db/Booking.js');
-const mongoose = require('mongoose');
 
 const app = express();
 app.use(morgan());
@@ -12,6 +11,10 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(express.static(__dirname+ '/../dist'));
+
+// app.get("/", (req, res) => {
+//   res.status(200).send("Hello World!");
+// });
 
 app.get('/:id', (req, res) => {
   let id = req.params.id;
@@ -23,4 +26,6 @@ app.get('/:id', (req, res) => {
 
 let port = 3030;
 
-app.listen(port, () => console.log(`listening to port ${port}`))
+app.listen(port, () => console.log(`listening to port ${port}`));
+
+module.exports = app;

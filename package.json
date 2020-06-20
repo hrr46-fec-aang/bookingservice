@@ -7,7 +7,7 @@
     "build": "webpack -d --watch",
     "start": "nodemon ./server/index.js",
     "db:setup": "node db/seed.js",
-    "test": "jest"
+    "test": "jest --testTimeout=10000"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "supertest": "^4.0.2",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },
