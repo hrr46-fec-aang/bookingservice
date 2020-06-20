@@ -14,4 +14,5 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
+      - run: npm run db:setup
       - run: npm run test
