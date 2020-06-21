@@ -1,7 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const Booking = require('../db/Booking.js');
+const db = require('../db/index.js');
+const Sequelize = require('sequelize');
 
 const app = express();
 app.use(morgan());
@@ -18,7 +19,7 @@ app.use(express.static(__dirname+ '/../dist'));
 
 app.get('/:id', (req, res) => {
   let id = req.params.id;
-  Booking.find({'id': id})
+  db.query(`select * from bookings, listings where listings.id = ${id} and listings.id = listingID`, { type: Sequelize.QueryTypes.SELECT })
   .then(data => {
     res.send(data);
   })
