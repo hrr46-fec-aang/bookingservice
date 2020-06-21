@@ -13,9 +13,7 @@ jobs:
       tag: '12.16.3'
     steps:
       - checkout
-      - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
-      - run: sudo docker-php-ext-install zip bcmath pdo_mysql
+      - run: sudo apt update 
       - run: sudo apt-get install mysql-client
       - node/with-cache:
           steps:
