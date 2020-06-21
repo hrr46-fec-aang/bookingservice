@@ -8,10 +8,9 @@ jobs:
       - image: circleci/mysql:5.7-ram
         environment:
           - MYSQL_ROOT_PASSWORD=root
-          - MYSQL_HOST=127.0.0.1
+          - MYSQL_DATABASE=booking
           - MYSQL_USER=root
           - MYSQL_PASSWORD= root
-          - MYSQL_ROOT_HOST=%  
     executor:
       name: node/default
       tag: '12.16.3'
@@ -22,7 +21,6 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
-      - run: mysqladmin create test --host="127.0.0.1" --user="root" --password="root"
       - run: npm run mysql
       - run: npm run db:setup
       - run: npm run test
