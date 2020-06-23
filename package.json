@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack -d --watch",
     "start": "nodemon ./server/index.js",
-    "mysql": "mysql -u root -e < db/schema.sql",
+    "mysql": "mysql -u root --password=\"root\" < db/schema.sql",
     "db:setup": "node db/seed.js",
     "test": "jest"
   },
