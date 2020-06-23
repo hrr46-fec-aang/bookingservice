@@ -8,9 +8,9 @@ jobs:
       - image: circleci/mysql:5.7-ram
         environment:
           - MYSQL_ROOT_PASSWORD=root
-          # - MYSQL_DATABASE=booking
-          # - MYSQL_USER=root
-          # - MYSQL_PASSWORD= root
+          - MYSQL_DATABASE=booking
+          - MYSQL_USER=root
+          - MYSQL_PASSWORD= root
     executor:
       name: node/default
       tag: '12.16.3'
@@ -18,6 +18,7 @@ jobs:
       - checkout
       - run: sudo apt update 
       - run: sudo apt-get install mysql-client
+      - run: sudo mysql -u root -e "CREATE user myuser IDENTIFIED BY 'password';"
       - node/with-cache:
           steps:
             - run: npm install
