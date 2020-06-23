@@ -33,7 +33,7 @@ class App extends React.Component {
       <div>
         <button onClick={this.toggle}>Checkin</button>
         <div id="lol">
-        <Calendar 
+        {/* <Calendar 
         onChange={this.onChange}
         value={this.state.date}
         />
@@ -43,14 +43,14 @@ class App extends React.Component {
          <Calendar 
         onChange={this.onChange}
         value={this.state.date}
-        />
+        /> */}
         </div>
         <div>
         <CalendarComponent id="calendar" />
         </div>
         <div>
 
-        <DateRangePicker
+        {/* <DateRangePicker
   startDate={this.state.startDate} // momentPropTypes.momentObj or null,
   startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
   endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -58,7 +58,7 @@ class App extends React.Component {
   onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
   focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
   onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-/>
+/> */}
   </div>
       </div>
     )

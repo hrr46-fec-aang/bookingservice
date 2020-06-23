@@ -8,9 +8,9 @@ jobs:
       - image: circleci/mysql:5.7-ram
         environment:
           - MYSQL_ROOT_PASSWORD=root
-          - MYSQL_DATABASE=booking
-          - MYSQL_USER=root
-          - MYSQL_PASSWORD= root
+          # - MYSQL_DATABASE=booking
+          # - MYSQL_USER=root
+          # - MYSQL_PASSWORD= root
     executor:
       name: node/default
       tag: '12.16.3'
