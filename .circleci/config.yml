@@ -10,7 +10,7 @@ jobs:
           - MYSQL_ROOT_PASSWORD=root
           - MYSQL_USER=root
           - MYSQL_PASSWORD= root
-          - MYSQL_ROOT_HOST=%
+          - MYSQL_ROOT_HOST=127.0.0.1
  
     executor:
       name: node/default
