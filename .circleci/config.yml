@@ -11,7 +11,8 @@ jobs:
           - MYSQL_USER=root
           - MYSQL_PASSWORD= root
           - MYSQL_ROOT_HOST=127.0.0.1
-          - MYSQL_DATABASE:booking
+          - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+          - MYSQL_DATABASE=booking
     executor:
       name: node/default
       tag: '12.16.3'
