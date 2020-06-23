@@ -23,7 +23,6 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
-      - run: mysql.server start
       - run: npm run mysql
       - run: npm run db:setup
       - run: npm run test
