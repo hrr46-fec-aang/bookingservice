@@ -23,6 +23,6 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
-      - run: npm run mysql
+      - run: mysql -h 127.0.0.1 -u root --password="root" < db/schema.sql
       - run: npm run db:setup
       - run: npm run test
