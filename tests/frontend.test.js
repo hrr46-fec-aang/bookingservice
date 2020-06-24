@@ -1,44 +1,45 @@
-const puppeteer = require('puppeteer');
-const pageUrl = 'http://localhost:3030/';
+// const puppeteer = require('puppeteer');
+// const pageUrl = 'http://localhost:3030/';
 
-let page;
-let browser;
-const width = 1280;
-const height = 720;
+// let page;
+// let browser;
+// const width = 1280;
+// const height = 720;
 
-beforeAll(async () => {
-  browser = await puppeteer.launch({
-    // headless: false,
-    // slowMo: 100,
-    // args: [`--window-size=${width}, ${height}`]
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  });
-  page = await browser.newPage();
-  await page.setViewport({width, height});
+// beforeAll(async () => {
+//   browser = await puppeteer.launch({
+//     // headless: false,
+//     // slowMo: 100,
+//     // args: [`--window-size=${width}, ${height}`]
+//     args: ['--no-sandbox', '--disable-setuid-sandbox']
+//   });
+//   page = await browser.newPage();
+//   await page.setViewport({width, height});
   
-});
+// });
 
 
 
-describe('Test server connect to root url', () => {
-  test('Checks that browser connects to server', async () => {
-    const res = await page.goto(pageUrl, {waitUntil: 'networkidle2'});
-    const title = await page.evaluate(()=> document.querySelector('title').textContent);
-    console.log(title);
-    expect(title).toEqual('Booking Module');
+// describe('Test server connect to root url', () => {
+//   test('Checks that browser connects to server', async () => {
+//     const res = await page.goto(pageUrl, {waitUntil: 'networkidle2'});
+//     const title = await page.evaluate(()=> document.querySelector('title').textContent);
+//     console.log(title);
+//     expect(title).toEqual('Booking Module');
 
-  });
-});
-describe('Test GET request for data(/booking/1)', () => {
-  test('Checks that browser connects to server', async () => {
-    const res = await page.goto(pageUrl+'booking/1', {waitUntil: 'networkidle2'});
-    const resBody = await res.text();
-    const resBodyObj = JSON.parse(resBody);
-    expect(resBodyObj[0].id).toEqual(1);
+//   });
+// });
+// describe('Test GET request for data(/booking/1)', () => {
+//   test('Checks that browser connects to server', async () => {
+//     const res = await page.goto(pageUrl+'booking/1', {waitUntil: 'networkidle2'});
+//     const resBody = await res.text();
+//     const resBodyObj = JSON.parse(resBody);
+//     expect(resBodyObj[0].id).toEqual(1);
 
-  });
-});
+//   });
+// });
 
+import 'jsdom-global/register';
 import React from 'react';
 import {configure, shallow, mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -63,6 +64,6 @@ describe('A suite', function() {
   });
 });
 
-afterAll(async () => {
-  await browser.close();
-});
+// afterAll(async () => {
+//   await browser.close();
+// });

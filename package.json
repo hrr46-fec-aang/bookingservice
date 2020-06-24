@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "description": "Booking module for making reservation",
   "main": "index.js",
-  "jest": {
-    "setupFilesAfterEnv": [
-      "./node_modules/jest-enzyme/lib/index.js"
-    ]
-  },
+  "jest": {},
   "scripts": {
     "build": "webpack -d --watch",
     "start": "nodemon ./server/server.js",
@@ -45,7 +41,10 @@
     "faker": "^4.1.0",
     "jest": "^26.0.1",
     "jest-enzyme": "^7.1.2",
+    "jest-puppeteer": "^4.4.0",
     "jquery": "^3.5.1",
+    "jsdom": "16.2.2",
+    "jsdom-global": "3.0.2",
     "mongoose": "^5.9.19",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
