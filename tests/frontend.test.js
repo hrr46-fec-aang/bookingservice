@@ -42,24 +42,58 @@
 import React from 'react';
 import {configure, shallow, mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Foo from './Foo';
+import Book from '../src/components/Book';
+import Button from '../src/App.style';
+import Checkin from '../src/components/Checkin';
+import Checkout from '../src/components/Checkout';
+
 configure({ adapter: new Adapter() })
 
-describe('A suite', function() {
+describe('Test Book Component', function() {
   it('should render without throwing an error', function() {
-    expect(shallow(<Foo />).contains(<div className="foo">Bar</div>)).toBe(true);
+    expect(shallow(<Book />).contains(<div className="book"><p><Button>Book</Button></p></div>)).toBe(true);
   });
 
-  it('should be selectable by class "foo"', function() {
-    expect(shallow(<Foo />).is('.foo')).toBe(true);
+  it('should be selectable by class "book"', function() {
+    expect(shallow(<Book />).is('.book')).toBe(true);
   });
 
   it('should mount in a full DOM', function() {
-    expect(mount(<Foo />).find('.foo').length).toBe(1);
+    expect(mount(<Book />).find('.book').length).toBe(1);
   });
 
   it('should render to static HTML', function() {
-    expect(render(<Foo />).text()).toEqual('Bar');
+    expect(render(<Book />).text()).toEqual('Book');
+  });
+});
+
+describe('Test Checkin Component', function() {
+
+  it('should be selectable by class "checkin"', function() {
+    expect(shallow(<Checkin />).is('.checkin')).toBe(true);
+  });
+
+  it('should mount in a full DOM', function() {
+    expect(mount(<Checkin />).find('.checkin').length).toBe(1);
+  });
+
+  it('should render to static HTML', function() {
+    expect(render(<Checkin />).text()).toEqual('Check in');
+  });
+});
+
+describe('Test Checkout Component', function() {
+
+  it('should be selectable by class "checkout"', function() {
+    expect(shallow(<Checkout />).is('.checkout')).toBe(true);
+  });
+
+  it('should mount in a full DOM', function() {
+    expect(mount(<Checkout />).find('.checkout').length).toBe(1);
+  });
+
+  it('should render to static HTML', function() {
+    expect(render(<Checkout />).text()).toEqual('Check out');
   });
 });
 

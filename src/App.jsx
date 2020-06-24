@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import DatePicker from 'react-datepicker';
-import 'react-calendar/dist/Calendar.css';
 import "react-datepicker/dist/react-datepicker.css";
 export default React.PureComponent;
 export const pureComponentAvailable = true;
@@ -99,5 +98,3 @@ class App extends React.Component {
 
 
 ReactDOM.render(<App/>, document.getElementById('app'));
-
-export default App;
