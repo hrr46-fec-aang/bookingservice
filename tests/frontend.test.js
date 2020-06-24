@@ -10,15 +10,16 @@ beforeAll(async () => {
   browser = await puppeteer.launch({
     // headless: false,
     // slowMo: 100,
-    args: [`--window-size=${width}, ${height}`]
+    // args: [`--window-size=${width}, ${height}`]
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
   page = await browser.newPage();
   await page.setViewport({width, height});
+  
 });
 
-afterAll(() => {
-  browser.close();
-});
+
+
 describe('Test server connect to root url', () => {
   test('Checks that browser connects to server', async () => {
     const res = await page.goto(pageUrl, {waitUntil: 'networkidle2'});
@@ -60,4 +61,8 @@ describe('A suite', function() {
   it('should render to static HTML', function() {
     expect(render(<Foo />).text()).toEqual('Bar');
   });
+});
+
+afterAll(async () => {
+  await browser.close();
 });
