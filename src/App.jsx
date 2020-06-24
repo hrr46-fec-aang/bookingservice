@@ -19,7 +19,8 @@ class App extends React.Component {
       date: new Date(),
       startDate: new Date(),
       endDate: null,
-      data: ''
+      data: '',
+      subtotal: 0
 
     }
   }
@@ -69,24 +70,27 @@ class App extends React.Component {
   
   render() {
     return (
-      <div className='booking'>
+      <div className="booking">
         <div>
-        <h4>${this.state.data.price} per night</h4>
+        <h3>${this.state.data.price}</h3>
+        <div className="pernight">per night</div>
         </div>
-        <div class="grid-container">
-        <div><button onClick={() => this.checkInToggle()}>Checkin</button>
-        <p>
-        {this.state.checkInToggle ? <DatePicker selected={this.state.startDate} onChange={this.handleChange.bind(this)}/> : null}
-        </p></div>
+        <div className="grid-container">
+        <div className="checkin"onClick={() => this.checkOutToggle()}>Check in
+        <DatePicker selected={this.state.startDate} onChange={this.handleChange.bind(this)} dateFormat="yyyy MMMM dd"/>
+       </div>
         {/* <CalendarComponent id="calendar" /> */}
-        <div><button onClick={() => this.checkOutToggle()}>Checkout</button>
-        <p>{this.state.checkOutToggle ? <DatePicker selected={this.state.startDate} onChange={this.handleChange.bind(this)}/>  : null}
-        </p></div>
-        <div>
-        <button>Guests</button><input id="guest" type="number" min="1" max="5" step="1" placeholder="1"></input>
+        <div className="checkout"onClick={() => this.checkOutToggle()}>Check out
+        <DatePicker selected={this.state.startDate} onChange={this.handleChange.bind(this)} dateFormat="yyyy MMMM dd"/>
+        </div>
+        <div className="guest">
+        Guests<input id="guest" type="number" min="1" max="5" step="1" placeholder="1"></input>
         </div>
         </div>
+        <div className="subtotal">Subtotal: ${this.state.data.subtotal}</div>
+        <div className="book">
         <p><Button>Book</Button></p>
+        </div>
         
       </div>
     )
@@ -95,3 +99,5 @@ class App extends React.Component {
 
 
 ReactDOM.render(<App/>, document.getElementById('app'));
+
+export default App;
