@@ -26,7 +26,7 @@ jobs:
       - run: npm run db:setup
       - run: npm run test-server
       - run: 
-        name: server
-        command: npm run start
-        background: true
+          name: server
+          command: npm run start
+          background: true
       - run: npm run test-frontend
