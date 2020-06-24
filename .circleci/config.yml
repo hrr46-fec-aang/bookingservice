@@ -24,4 +24,6 @@ jobs:
             - run: npm install
       - run: mysql -h 127.0.0.1 -u root --password="root" < db/schema.sql
       - run: npm run db:setup
-      - run: npm run test
+      - run: npm run test-server
+      - run: npm run start
+      - run: npm run test-frontend
