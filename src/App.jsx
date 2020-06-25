@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import DatePicker from 'react-datepicker';
+import { addDays } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 export default React.PureComponent;
 export const pureComponentAvailable = true;
-import { CalendarComponent, RenderDayCellEventArgs } from '@syncfusion/ej2-react-calendars';
 import './App.css';
 import axios from 'axios';
 import Button from './App.style';
+import moment from 'moment';
+import faker from 'faker';
 
 class App extends React.Component {
   constructor (props) {
@@ -15,12 +17,15 @@ class App extends React.Component {
     this.state = {
       checkInToggle: false,
       checkOutToggle: false,
-      date: new Date(),
       startDate: new Date(),
-      endDate: null,
+      endDate: addDays(new Date(),1),
       data: '',
-      subtotal: 0
-
+      subtotal: 0,
+      price: 0,
+      takenDates: [],
+      maxDate: [],
+      guests: 1,
+      maxGuest: 0
     }
   }
   componentDidMount() {
@@ -30,65 +35,157 @@ class App extends React.Component {
     } else {
       axios.get(`http://localhost:3030/booking${id}`)
       .then(data =>{
-        this.setState({
-          data: data.data[0]
+        var daylist = [];
+        var result = [];
+        var getDaysArray = function(start, end) {
+          for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+              arr.push(new Date(dt));
+          }
+          return arr;
+        };
+        for (var i = 0; i < data.data.length; i++) {
+          daylist=getDaysArray(new Date(data.data[i].arrive), new Date(data.data[i].depart));
+          for (var date in daylist) {
+            result.push(daylist[date]);
+          }
+        }
+        result.sort(function(a,b){
+          var c = new Date(a);
+          var d = new Date(b);
+          return c-d;
+          });
+      console.log(result);
+          this.setState({
+          data: data.data,
+          price: data.data[0].price,
+          maxGuest: data.data[0].maximum,
+          takenDates: result
         })
-        console.log(this.state.data)
       })
+      .then(() => {
+        this.handleMaxDate(this.state.startDate);
+        var a = moment(this.state.startDate).format();
+        var b = moment(this.state.endDate)
+        var c = this.state.price * b.diff(a, 'days') * this.state.guests;
+        this.setState({
+          subtotal: c
+        })
+      });
     }
   }
 
-  onChange() {date => this.setState({ date })}
-  
-  checkInToggle() {
-    if (this.state.checkOutToggle === true) {
-      this.setState({
-        checkOutToggle:!this.state.checkOutToggle
-      })
-    }
+  handleMaxDate(date) {
+    var max = '';
+    for (var i in this.state.takenDates) {
+      console.log(this.state.takenDates[i])
+      if (date < this.state.takenDates[i]) {  
+        console.log(this.state.takenDates[i])
+        max = this.state.takenDates[i];
+        this.setState({
+          maxDate: max
+        })
+        return;
+      }
+    };
     this.setState({
-      checkInToggle:!this.state.checkInToggle
+      maxDate: ''
     })
   }
-  checkOutToggle() {
-    if (this.state.checkInToggle === true) {
-      this.setState({
-        checkInToggle:!this.state.checkInToggle
-      })
-    }
+  handleCheckinChange(date) {
+    console.log(this.state.takenDates);
+    this.handleMaxDate(date);
     this.setState({
-      checkOutToggle:!this.state.checkOutToggle
-    })
-  }
-  handleChange(date) {
-    this.setState({
-      startDate: date
+      startDate: date,
+      endDate: addDays(date,1)
     });
+
+    setTimeout(()=> {
+      var a = moment(this.state.startDate).format();
+        var b = moment(this.state.endDate);
+        var c = this.state.price * b.diff(a, 'days') * this.state.guests;
+        this.setState({
+          subtotal: c
+        })
+    }, 100);
+    console.log(date);
+  };
+  handleCheckoutChange(date) {
+    this.setState({
+      endDate: date
+    });
+    setTimeout(()=> {
+      var a = moment(this.state.startDate).format();
+        var b = moment(this.state.endDate);
+        var c = this.state.price * b.diff(a, 'days') * this.state.guests;
+
+        this.setState({
+          subtotal: c
+        })
+    }, 100);
+    console.log(date);
   };
 
-  
+  handleGuestChange(e) {
+    this.setState({
+      guests: e.target.value
+  })
+  setTimeout(()=> {
+    var a = moment(this.state.startDate).format();
+      var b = moment(this.state.endDate);
+      var c = this.state.price * b.diff(a, 'days') * this.state.guests;
+
+      this.setState({
+        subtotal: c
+      })
+  }, 100);
+}
+
+  handleBooking() {
+    var id = window.location.pathname;
+    var bookingName = `${faker.name.firstName() + ' ' + faker.name.lastName()}`
+    var arrive = this.state.startDate;
+    var depart = this.state.endDate;
+    var groupsize = this.state.guests;
+    var subtotal = this.state.subtotal;
+    var booking = {
+      'bookingName': bookingName,
+      'arrive': arrive,
+      'depart': depart,
+      'groupsize': groupsize,
+      'subtotal': subtotal
+    }
+    if (id === '/') {
+      console.log('hi');
+    } else {
+      axios.post(`http://localhost:3030/booking${id}`, booking)
+      .then(res => {
+        console.log(res.data);
+      })
+      .then(setTimeout(() => {this.componentDidMount()}, 500));
+  }
+}
   render() {
     return (
       <div className="booking">
         <div>
-        <h3>${this.state.data.price}</h3>
+        <h3>${this.state.price}</h3>
         <div className="pernight">per night</div>
         </div>
         <div className="grid-container">
-        <div className="checkin"onClick={() => this.checkOutToggle()}>Check in
-        <DatePicker selected={this.state.startDate} onChange={this.handleChange.bind(this)} dateFormat="yyyy MMMM dd"/>
+        <div className="checkin">Check in
+        <DatePicker selectsStart startDate={this.state.startDate} endDate={this.state.endDate} minDate={moment().toDate()} excludeDates={this.state.takenDates} selected={this.state.startDate} onChange={this.handleCheckinChange.bind(this)} dateFormat="yyyy MMMM dd"/>
        </div>
         {/* <CalendarComponent id="calendar" /> */}
-        <div className="checkout"onClick={() => this.checkOutToggle()}>Check out
-        <DatePicker selected={this.state.startDate} onChange={this.handleChange.bind(this)} dateFormat="yyyy MMMM dd"/>
+        <div className="checkout">Check out
+        <DatePicker startDate={addDays(this.state.startDate,1)} endDate={this.state.endDate} minDate={addDays(this.state.startDate,1)} maxDate={this.state.maxDate}excludeDates={this.state.takenDates} selected={this.state.endDate} onChange={this.handleCheckoutChange.bind(this)} dateFormat="yyyy MMMM dd"/>
         </div>
         <div className="guest">
-        Guests<input id="guest" type="number" min="1" max="5" step="1" placeholder="1"></input>
+        Guests<input id="guest" type="number" min="1" max={this.state.maxGuest} step="1" placeholder="1" onChange={this.handleGuestChange.bind(this)}></input>
         </div>
         </div>
-        <div className="subtotal">Subtotal: ${this.state.data.subtotal}</div>
+        <div className="subtotal">Subtotal: ${this.state.subtotal}</div>
         <div className="book">
-        <p><Button>Book</Button></p>
+        <p><Button onClick={this.handleBooking.bind(this)}>Book</Button></p>
         </div>
         
       </div>

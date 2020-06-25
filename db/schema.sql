@@ -6,14 +6,15 @@ CREATE TABLE listings (
   id INT NOT NULL AUTO_INCREMENT,
   listingName VARCHAR(80) NOT NULL,
   price INT NOT NULL,
+  maximum INT NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE bookings (
   id INT NOT NULL AUTO_INCREMENT,
   bookingName VARCHAR(40) NOT NULL,
-  arrive VARCHAR(40) NOT NULL,
-  depart VARCHAR(40) NOT NULL,
+  arrive VARCHAR(100) NOT NULL,
+  depart VARCHAR(100) NOT NULL,
   groupsize INT NOT NULL,
   subtotal INT NOT NULL,
   listingID INT NOT NULL,

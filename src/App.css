@@ -37,3 +37,7 @@ input {
 .subtotal {
   padding: 10px 0px 10px 0px;
 }
+
+.react-datepicker__day--selected {
+  background-color: #40d9ac;
+}
