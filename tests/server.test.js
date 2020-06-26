@@ -6,7 +6,7 @@ const sequelize = require('sequelize');
 beforeAll(async () => {
   await db.authenticate();
   console.log('Connection has been established successfully.');
-  
+
 });
 
 afterAll(async () => {

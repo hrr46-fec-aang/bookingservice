@@ -41,7 +41,7 @@ app.post('/booking/:id', (req, res) => {
   var subtotal = req.body.subtotal;
   var listingID = req.params.id;
   console.log(listingID);
-  db.query(`select * from bookings where listingID = ${listingID} and (arrive like "${arrive.slice(0,10)}%" or arrive like "${depart.slice(0,10)}%")`, { type: Sequelize.QueryTypes.SELECT })
+  db.query(`select * from bookings where listingID = ${listingID} and (arrive like "${arrive.slice(0, 10)}%" or arrive like "${depart.slice(0, 10)}%")`, { type: Sequelize.QueryTypes.SELECT })
     .then(data => {
       console.log(data);
       if (data.length !== 0) {

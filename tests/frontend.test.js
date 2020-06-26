@@ -15,7 +15,7 @@
 //   });
 //   page = await browser.newPage();
 //   await page.setViewport({width, height});
-  
+
 // });
 
 
@@ -40,7 +40,7 @@
 // });
 
 import React from 'react';
-import {configure, shallow, mount, render } from 'enzyme';
+import { configure, shallow, mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Book from '../src/components/Book';
 import Button from '../src/App.style';
@@ -49,50 +49,50 @@ import Checkout from '../src/components/Checkout';
 
 configure({ adapter: new Adapter() })
 
-describe('Test Book Component', function() {
-  it('should render without throwing an error', function() {
+describe('Test Book Component', function () {
+  it('should render without throwing an error', function () {
     expect(shallow(<Book />).contains(<div className="book"><p><Button>Book</Button></p></div>)).toBe(true);
   });
 
-  it('should be selectable by class "book"', function() {
+  it('should be selectable by class "book"', function () {
     expect(shallow(<Book />).is('.book')).toBe(true);
   });
 
-  it('should mount in a full DOM', function() {
+  it('should mount in a full DOM', function () {
     expect(mount(<Book />).find('.book').length).toBe(1);
   });
 
-  it('should render to static HTML', function() {
+  it('should render to static HTML', function () {
     expect(render(<Book />).text()).toEqual('Book');
   });
 });
 
-describe('Test Checkin Component', function() {
+describe('Test Checkin Component', function () {
 
-  it('should be selectable by class "checkin"', function() {
+  it('should be selectable by class "checkin"', function () {
     expect(shallow(<Checkin />).is('.checkin')).toBe(true);
   });
 
-  it('should mount in a full DOM', function() {
+  it('should mount in a full DOM', function () {
     expect(mount(<Checkin />).find('.checkin').length).toBe(1);
   });
 
-  it('should render to static HTML', function() {
+  it('should render to static HTML', function () {
     expect(render(<Checkin />).text()).toEqual('Check in');
   });
 });
 
-describe('Test Checkout Component', function() {
+describe('Test Checkout Component', function () {
 
-  it('should be selectable by class "checkout"', function() {
+  it('should be selectable by class "checkout"', function () {
     expect(shallow(<Checkout />).is('.checkout')).toBe(true);
   });
 
-  it('should mount in a full DOM', function() {
+  it('should mount in a full DOM', function () {
     expect(mount(<Checkout />).find('.checkout').length).toBe(1);
   });
 
-  it('should render to static HTML', function() {
+  it('should render to static HTML', function () {
     expect(render(<Checkout />).text()).toEqual('Check out');
   });
 });
