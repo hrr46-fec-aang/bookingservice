@@ -61,14 +61,16 @@ input:focus {
 }
 
 input, #checkinCalendar{
-  width: 7em;
-  text-align: center;
+  width: 5em;
+  margin: 0px 11px 0px 0px;
+  text-align: left;
   border-style: none;
 }
 
 input, #checkoutCalendar{
-  width: 7em;
-  text-align: center;
+  width: 5em;
+  margin: 0px 11px 0px 0px;
+  text-align: left;
   border-style: none;
 }
 input, #guestCount{
@@ -86,7 +88,7 @@ input, #guestCount{
 
 }
 
-.pernight {
+#pernight {
   text-align: left;
   font-size: small;
   font-weight: 300;
@@ -110,9 +112,12 @@ input, #guestCount{
   border-width: 0.01em;
 
 }
+.loader {
+  margin: 11px 0px 11px 0px;
+}
 
 .subtotal {
-  padding: 10px 0px 10px 0px;
+  padding: 11px 0px 11px 0px;
 }
 
 .react-datepicker__day--selected, .react-datepicker__day--in-range{ 

@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import DatePicker from "react-datepicker";
 import { addDays } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-export default React.PureComponent;
-export const pureComponentAvailable = true;
 import axios from "axios";
 import Button from "./App.style";
 import moment from "moment";
 import faker from "faker";
 import "./App.css";
+import Loader from './components/Loader.jsx';
+import $ from 'jquery';
 
 class App extends React.Component {
   constructor(props) {
@@ -26,12 +26,14 @@ class App extends React.Component {
       maxDate: [],
       guests: 1,
       maxGuest: 0,
+      loading: true
     };
+    this.handleCheckinChange=this.handleCheckinChange.bind(this)
   }
   componentDidMount() {
     var id = window.location.pathname;
     if (id === "/") {
-      console.log("hi");
+      console.log("Welcome!");
     } else {
       axios
         .get(`http://localhost:3030/booking${id}`)
@@ -62,7 +64,6 @@ class App extends React.Component {
             var d = new Date(b);
             return c - d;
           });
-          console.log(result);
           this.setState({
             data: data.data,
             price: data.data[0].price,
@@ -70,24 +71,23 @@ class App extends React.Component {
             takenDates: result,
           });
         })
-        .then(() => {
+        .then(setTimeout(() => {
           this.handleMaxDate(this.state.startDate);
           var a = moment(this.state.startDate).format();
           var b = moment(this.state.endDate);
           var c = this.state.price * b.diff(a, "days") * this.state.guests;
           this.setState({
             subtotal: c,
+            loading: false
           });
-        });
+        }, 500));
     }
   }
 
   handleMaxDate(date) {
     var max = "";
     for (var i in this.state.takenDates) {
-      console.log(this.state.takenDates[i]);
       if (date < this.state.takenDates[i]) {
-        console.log(this.state.takenDates[i]);
         max = this.state.takenDates[i];
         this.setState({
           maxDate: max,
@@ -97,29 +97,34 @@ class App extends React.Component {
     }
     this.setState({
       maxDate: "",
+      loading: true
     });
   }
   handleCheckinChange(date) {
-    console.log(this.state.takenDates);
     this.handleMaxDate(date);
+    document.getElementsByClassName('react-datepicker-ignore-onclickoutside')[0].className='';
+    $('.react-datepicker__tab-loop').empty();
     this.setState({
       startDate: date,
       endDate: addDays(date, 1),
+      loading: true
     });
-
     setTimeout(() => {
       var a = moment(this.state.startDate).format();
       var b = moment(this.state.endDate);
       var c = this.state.price * b.diff(a, "days") * this.state.guests;
       this.setState({
         subtotal: c,
+        loading: false
       });
-    }, 100);
-    console.log(date);
+    }, 500);
   }
   handleCheckoutChange(date) {
+    document.getElementsByClassName('react-datepicker-ignore-onclickoutside')[0].className='';
+    $('.react-datepicker__tab-loop').empty();
     this.setState({
       endDate: date,
+      loading: true
     });
     setTimeout(() => {
       var a = moment(this.state.startDate).format();
@@ -128,14 +133,15 @@ class App extends React.Component {
 
       this.setState({
         subtotal: c,
+        loading: false
       });
-    }, 100);
-    console.log(date);
+    }, 500);
   }
 
   handleGuestChange(e) {
     this.setState({
       guests: e.target.value,
+      loading: true
     });
     setTimeout(() => {
       var a = moment(this.state.startDate).format();
@@ -144,11 +150,18 @@ class App extends React.Component {
 
       this.setState({
         subtotal: c,
+        loading: false
       });
-    }, 100);
+    }, 500);
   }
 
   handleBooking() {
+    document.getElementById("checkin").style.background = "white";
+    document.getElementById("checkinCalendar").style.background = "white";
+    document.getElementById("checkout").style.background = "white";
+    document.getElementById("checkoutCalendar").style.background = "white";
+    document.getElementById("guest").style.background = "white";
+    document.getElementById("guestCount").style.background = "white";
     var id = window.location.pathname;
     var bookingName = `${faker.name.firstName() + " " + faker.name.lastName()}`;
     var arrive = this.state.startDate;
@@ -163,7 +176,7 @@ class App extends React.Component {
       subtotal: subtotal,
     };
     if (id === "/") {
-      console.log("hi");
+      console.log("Welcome!");
     } else {
       axios
         .post(`http://localhost:3030/booking${id}`, booking)
@@ -179,7 +192,6 @@ class App extends React.Component {
   }
 
   changeCheckinColor() {
-    console.log("hi");
     document.getElementById("checkin").style.background = "#f3f3f3";
     document.getElementById("checkinCalendar").click();
     document.getElementById("checkinCalendar").style.background = "#f3f3f3";
@@ -190,7 +202,6 @@ class App extends React.Component {
   }
 
   changeCheckoutColor() {
-    console.log("hi");
     document.getElementById("checkout").style.background = "#f3f3f3";
     document.getElementById("checkoutCalendar").click();
     document.getElementById("checkoutCalendar").style.background = "#f3f3f3";
@@ -201,7 +212,6 @@ class App extends React.Component {
   }
 
   changeGuestColor() {
-    console.log("hi");
     document.getElementById("guest").style.background = "#f3f3f3";
     document.getElementById("guestCount").click();
     document.getElementById("guestCount").style.background = "#f3f3f3";
@@ -217,16 +227,16 @@ class App extends React.Component {
         <div className="booking">
           <div>
             <h2>${this.state.price}</h2>
-            <div className="pernight">per night</div>
+            <div id="pernight">per night</div>
           </div>
           <div className="grid-container">
             <div
-              onClick={this.changeCheckinColor}
+              onClick={this.changeCheckinColor.bind(this)}
               id="checkin"
               className="checkin"
             ><div className="checkintxt">
               Check in</div>
-              <DatePicker
+              <div onClick={()=>{console.log('hi');$('#checkin').click();}}><DatePicker
                 id="checkinCalendar"
                 selectsStart
                 startDate={this.state.startDate}
@@ -234,12 +244,13 @@ class App extends React.Component {
                 minDate={moment().toDate()}
                 excludeDates={this.state.takenDates}
                 selected={this.state.startDate}
-                onChange={this.handleCheckinChange.bind(this)}
-                dateFormat="yyyy MMMM dd"
-              />
+                onChange={date => this.handleCheckinChange(date)}
+                dateFormat="yyyy/MM/dd"
+                shouldCloseOnSelect={true}
+              /></div>
             </div>
             <div
-              onClick={this.changeCheckoutColor}
+              onClick={this.changeCheckoutColor.bind(this)}
               id="checkout"
               className="checkout"
             ><div className="checkouttxt">
@@ -252,8 +263,9 @@ class App extends React.Component {
                 maxDate={this.state.maxDate}
                 excludeDates={this.state.takenDates}
                 selected={this.state.endDate}
-                onChange={this.handleCheckoutChange.bind(this)}
-                dateFormat="yyyy MMMM dd"
+                onChange={date => this.handleCheckoutChange(date)}
+                dateFormat="yyyy/MM/dd"
+                shouldCloseOnSelect={true}
               />
             </div>
             <div onClick={this.changeGuestColor} id="guest" className="guest">
@@ -270,7 +282,8 @@ class App extends React.Component {
               <div className="input-group"></div>
             </div>
           </div>
-          <div className="subtotal">Subtotal: ${this.state.subtotal}</div>
+          {this.state.loading ? <Loader /> :
+          <div className="subtotal">Subtotal: ${this.state.subtotal}</div>}
           <div className="book">
             <p>
               <Button onClick={this.handleBooking.bind(this)}>Book</Button>
