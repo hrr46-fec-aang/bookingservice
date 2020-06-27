@@ -13,4 +13,4 @@ Run these commands in order
 2. npm run start
 
 ## demo
-![Booking Module Demo](demo/demo.gif)
+![Booking Module Demo](demo/Demo.gif)
