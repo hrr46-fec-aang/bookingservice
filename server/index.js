@@ -5,7 +5,6 @@ const db = require('../db/index.js');
 const Sequelize = require('sequelize');
 
 const app = express();
-app.set("view engine", "ejs");
 app.use(morgan());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
