@@ -11,7 +11,7 @@ import "./App.css";
 import Loader from './components/Loader.jsx';
 import $ from 'jquery';
 
-class App extends React.Component {
+class BookingApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
