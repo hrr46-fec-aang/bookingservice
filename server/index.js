@@ -3,9 +3,11 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
 const Sequelize = require('sequelize');
+const cors = require('cors');
 
 const app = express();
 app.use(morgan());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
