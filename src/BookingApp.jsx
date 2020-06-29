@@ -295,4 +295,4 @@ class BookingApp extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("booking"));
+ReactDOM.render(<BookingApp />, document.getElementById("booking"));
