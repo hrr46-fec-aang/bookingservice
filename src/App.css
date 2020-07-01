@@ -16,26 +16,24 @@
   position: absolute;
   top: 50%;
   right: 16px;
-  z-index: 19;
-
+  z-index: 2;
 }
 h2 {
   margin: 7px 5px 0px 15px;
   text-align: left;
 }
 
-input[type=number]:focus{
-  outline:none;
+input[type='number']:focus {
+  outline: none;
   border-style: solid !important;
   border-color: #40d9ac;
   border-radius: 5px;
 }
-input[type=text]:focus{
-  outline:none;
+input[type='text']:focus {
+  outline: none;
   border-style: solid !important;
   border-color: #40d9ac;
   border-radius: 5px;
-
 }
 .grid-container {
   display: grid;
@@ -46,7 +44,7 @@ input[type=text]:focus{
   border-top: solid;
   border-bottom: solid;
   border-color: #ebebeb;
-  border-width: 0.01em
+  border-width: 0.01em;
 }
 
 .grid-container > div {
@@ -54,38 +52,38 @@ input[type=text]:focus{
   text-align: center;
   padding: 20px 0px 0px 0px;
   font-size: 15px;
-  
 }
 input:focus {
   background-color: lightgray;
 }
 
-input, #checkinCalendar{
+input,
+#checkinCalendar {
   width: 5em;
   margin: 0px 11px 0px 0px;
   text-align: left;
   border-style: none;
 }
 
-input, #checkoutCalendar{
+input,
+#checkoutCalendar {
   width: 5em;
   margin: 0px 11px 0px 0px;
   text-align: left;
   border-style: none;
 }
-input, #guestCount{
+input,
+#guestCount {
   width: 5em;
   text-align: center;
   border-style: none;
 }
-
 
 .book {
   border-top: solid;
   border-color: #ebebeb;
   border-width: 0.01em;
   padding: 10px;
-
 }
 
 #pernight {
@@ -110,7 +108,6 @@ input, #guestCount{
   border-right: solid;
   border-color: #ebebeb;
   border-width: 0.01em;
-
 }
 .loader {
   margin: 11px 0px 11px 0px;
@@ -120,20 +117,23 @@ input, #guestCount{
   padding: 11px 0px 11px 0px;
 }
 
-.react-datepicker__day--selected, .react-datepicker__day--in-range{ 
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
   background-color: #40d9ac;
 }
-.react-datepicker__day--disabled { 
+.react-datepicker__day--disabled {
   background-color: white;
-} 
-.react-datepicker__day--keyboard-selected { 
+}
+.react-datepicker__day--keyboard-selected {
   background-color: white;
   color: black;
-} 
-.react-datepicker__day--in-selecting-range:hover, .react-datepicker__day--keyboard-selected:hover, .react-datepicker__day--in-selecting-range {
+}
+.react-datepicker__day--in-selecting-range:hover,
+.react-datepicker__day--keyboard-selected:hover,
+.react-datepicker__day--in-selecting-range {
   background-color: #40d9ac;
 }
 
-input[type=number]::-webkit-inner-spin-button {
-  opacity: 1
+input[type='number']::-webkit-inner-spin-button {
+  opacity: 1;
 }
