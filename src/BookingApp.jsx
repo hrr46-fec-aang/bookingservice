@@ -36,7 +36,7 @@ class BookingApp extends React.Component {
       console.log("Welcome!");
     } else {
       axios
-        .get(`http://localhost:3030/booking${id}`)
+        .get(`/booking${id}`)
         .then((data) => {
           var daylist = [];
           var result = [];
@@ -179,7 +179,7 @@ class BookingApp extends React.Component {
       console.log("Welcome!");
     } else {
       axios
-        .post(`http://localhost:3030/booking${id}`, booking)
+        .post(`/booking${id}`, booking)
         .then((res) => {
           console.log(res.data);
         })
