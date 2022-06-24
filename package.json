@@ -46,7 +46,7 @@
     "jest-cli": "^26.1.0",
     "jest-enzyme": "^7.1.2",
     "jquery": "^3.5.1",
-    "jsdom": "16.2.2",
+    "jsdom": "16.5.0",
     "jsdom-global": "3.0.2",
     "moment": "^2.27.0",
     "mongoose": "^5.9.19",
