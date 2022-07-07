@@ -48,7 +48,7 @@
     "jquery": "^3.5.1",
     "jsdom": "16.2.2",
     "jsdom-global": "3.0.2",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.9.19",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
